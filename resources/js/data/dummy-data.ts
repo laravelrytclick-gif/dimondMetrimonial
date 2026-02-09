@@ -1,5 +1,17 @@
 // Shared dummy data for the Diamond Matrimonial application
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string; // Hashed password
+  role: 'Admin' | 'RM';
+  is_active: boolean;
+  last_login_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Profile {
   id: number;
   user_code: string;
@@ -752,4 +764,123 @@ export const getCallHistoryByProfileId = (profileId: number): CallHistory[] => {
 // Helper function to get meetings by profile ID
 export const getMeetingsByProfileId = (profileId: number): Meeting[] => {
   return dummyMeetings.filter(meeting => meeting.profile_id === profileId);
+};
+
+// Dummy RM Users data
+export const dummyUsers: User[] = [
+  {
+    id: 1,
+    name: 'John Smith',
+    email: 'john.smith@diamondmatrimonial.com',
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    role: 'Admin',
+    is_active: true,
+    last_login_at: '2024-01-15T10:30:00Z',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-15T10:30:00Z'
+  },
+  {
+    id: 2,
+    name: 'Sarah Johnson',
+    email: 'sarah.johnson@diamondmatrimonial.com',
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    role: 'RM',
+    is_active: true,
+    last_login_at: '2024-01-14T09:15:00Z',
+    created_at: '2024-01-02T00:00:00Z',
+    updated_at: '2024-01-14T09:15:00Z'
+  },
+  {
+    id: 3,
+    name: 'Michael Davis',
+    email: 'michael.davis@diamondmatrimonial.com',
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    role: 'RM',
+    is_active: true,
+    last_login_at: '2024-01-13T14:20:00Z',
+    created_at: '2024-01-03T00:00:00Z',
+    updated_at: '2024-01-13T14:20:00Z'
+  },
+  {
+    id: 4,
+    name: 'Emily Wilson',
+    email: 'emily.wilson@diamondmatrimonial.com',
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    role: 'RM',
+    is_active: false,
+    last_login_at: null,
+    created_at: '2024-01-04T00:00:00Z',
+    updated_at: '2024-01-10T11:45:00Z'
+  },
+  {
+    id: 5,
+    name: 'Robert Brown',
+    email: 'robert.brown@diamondmatrimonial.com',
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    role: 'RM',
+    is_active: true,
+    last_login_at: '2024-01-12T16:30:00Z',
+    created_at: '2024-01-05T00:00:00Z',
+    updated_at: '2024-01-12T16:30:00Z'
+  },
+  {
+    id: 6,
+    name: 'Jennifer Martinez',
+    email: 'jennifer.martinez@diamondmatrimonial.com',
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    role: 'Admin',
+    is_active: true,
+    last_login_at: '2024-01-11T08:45:00Z',
+    created_at: '2024-01-06T00:00:00Z',
+    updated_at: '2024-01-11T08:45:00Z'
+  }
+];
+
+// Helper function to get all users
+export const getAllUsers = (): User[] => {
+  return dummyUsers;
+};
+
+// Helper function to get user by ID
+export const getUserById = (id: number): User | undefined => {
+  return dummyUsers.find(user => user.id === id);
+};
+
+// Helper function to get users by role
+export const getUsersByRole = (role: 'Admin' | 'RM'): User[] => {
+  return dummyUsers.filter(user => user.role === role);
+};
+
+// Helper function to create a new user
+export const createUser = (userData: Omit<User, 'id' | 'created_at' | 'updated_at'>): User => {
+  const newUser: User = {
+    ...userData,
+    id: Math.max(...dummyUsers.map(u => u.id)) + 1,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  };
+  dummyUsers.push(newUser);
+  return newUser;
+};
+
+// Helper function to update a user
+export const updateUser = (id: number, userData: Partial<User>): User | null => {
+  const userIndex = dummyUsers.findIndex(user => user.id === id);
+  if (userIndex === -1) return null;
+  
+  dummyUsers[userIndex] = {
+    ...dummyUsers[userIndex],
+    ...userData,
+    updated_at: new Date().toISOString()
+  };
+  return dummyUsers[userIndex];
+};
+
+// Helper function to delete a user
+export const deleteUser = (id: number): boolean => {
+  const userIndex = dummyUsers.findIndex(user => user.id === id);
+  if (userIndex === -1) return false;
+  
+  dummyUsers.splice(userIndex, 1);
+  return true;
 };
