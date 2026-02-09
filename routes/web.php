@@ -42,4 +42,8 @@ Route::get('profiles/{id}', function ($id) {
     return Inertia::render('profile-detail', ['profileId' => $id]);
 })->name('profile.detail');
 
+Route::get('admin/users', function () {
+    return Inertia::render('users');
+})->name('admin.users');
+
 require __DIR__.'/settings.php';

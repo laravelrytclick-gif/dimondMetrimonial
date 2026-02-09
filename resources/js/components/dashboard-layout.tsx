@@ -38,12 +38,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             href: '/admin-dashboard',
             current: window.location.pathname === '/admin-dashboard'
         },
-        {
-            title: 'Users',
-            icon: Users,
-            href: '/admin/users',
-            current: window.location.pathname === '/admin/users'
-        },
+        
         {
             title: 'Reports',
             icon: FileText,
@@ -61,6 +56,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             icon: DollarSign,
             href: '/admin/finance',
             current: window.location.pathname === '/admin/finance'
+        },
+        {
+            title: 'Users Management',
+            icon: Users,
+            href: '/admin/users',
+            current: window.location.pathname === '/admin/users'
         }
     ];
 
@@ -79,7 +80,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             current: window.location.pathname === '/rm/candidates'
         },
         {
-            title: 'Today\'s Follow-ups',
+            title: 'Follow-ups',
             icon: Phone,
             href: '/rm/followups',
             current: window.location.pathname === '/rm/followups'
